@@ -1,5 +1,5 @@
 #pragma once
-#include <flows/Flows.h>
+//#include <flows/Flows.h>
 
 #include "Stage.h"
 #include "cachelib/allocator/CacheAllocator.h"
@@ -14,7 +14,7 @@ class CacheAllocator : public Cache,
   std::shared_ptr<Stage> m_stage;
   void resize(std::unordered_map<int32_t, uint64_t> newSizes) override final;
   std::unordered_map<int32_t, PoolStatus> getStatus() override final;
-  std::unordered_map<int32_t, std::shared_ptr<Flows>> m_flows;
+  //std::unordered_map<int32_t, std::shared_ptr<Flows>> m_flows;
   using Super = ::facebook::cachelib::CacheAllocator<CacheTrait>;
 
  public:
