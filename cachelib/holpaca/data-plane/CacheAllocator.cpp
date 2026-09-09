@@ -55,7 +55,7 @@ CacheAllocator<CacheTrait>::getStatus() {
     for (auto const& [cid, cs] : stats.cacheStats) {
       s.tailAccesses[cid] = cs.containerStat.numTailAccesses;
     }
-    s.mrc = m_flows[pid]->bmrc();
+    //s.mrc = m_flows[pid]->bmrc();
     poolStatus[pid] = std::move(s);
   }
   return poolStatus;
@@ -64,7 +64,7 @@ CacheAllocator<CacheTrait>::getStatus() {
 template <typename CacheTrait>
 PoolId CacheAllocator<CacheTrait>::addPool(std::string name, size_t size) {
   auto poolId = Super::addPool(name, size);
-  m_flows[poolId] = std::make_unique<Flows>(32000);
+  //m_flows[poolId] = std::make_unique<Flows>(32000);
   return poolId;
 }
 
@@ -77,7 +77,7 @@ bool CacheAllocator<CacheTrait>::put(PoolId id,
     return false;
   }
   auto kkey = key;
-  m_flows[id]->write(kkey, value.size());
+  //m_flows[id]->write(kkey, value.size());
   std::memcpy(handle->getMemory(), value.data(), value.size());
   Super::insertOrReplace(handle);
   return true;
@@ -90,7 +90,7 @@ std::string CacheAllocator<CacheTrait>::get(PoolId id, const std::string& key) {
     return "";
   }
   auto kkey = key;
-  m_flows[id]->read(kkey);
+  //m_flows[id]->read(kkey);
   return std::string(reinterpret_cast<const char*>(handle->getMemory()),
                      handle->getSize());
 }
